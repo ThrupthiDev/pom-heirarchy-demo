@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:google-analytics="http://www.mulesoft.org/schema/mule/google-analytics" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/google-analytics http://www.mulesoft.org/schema/mule/google-analytics/current/mule-google-analytics.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="c13da3e0-f177-4329-aced-8abc61d07a84" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="3d654745-8870-4602-abdb-e14a31d2e523" >
+		<http:request-connection host="circle-ci-mulesoft-poc-dev.us-e2.cloudhub.io" />
+	</http:request-config>
+	<flow name="pom-hierarchy-demoFlow" doc:id="194f8eca-a861-40f1-98f3-ac1f0aa1edd5" >
+		<http:listener doc:name="Listener" doc:id="2f17bb6c-b026-4465-a043-e8a09eaa6948" config-ref="HTTP_Listener_config" path="/child"/>
+		<http:request method="GET" doc:name="Request" doc:id="5d6dfc50-fd0e-482e-aa5f-7391b9106cf3" config-ref="HTTP_Request_configuration" path="/hello"/>
+		<logger level="INFO" doc:name="Logger" doc:id="a9063a17-c5db-484d-87df-f8c28df47031" message='#[payload]'/>
+	</flow>
+</mule>
